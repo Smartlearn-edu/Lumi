@@ -101,11 +101,34 @@
       <div class="form-group">
         <label>AI Provider</label>
         <select id="aiProvider">
-          <option value="ollama">Local Ollama (100% Offline / Private)</option>
-          <option value="gemini">Google Gemini</option>
+          <option value="gemini">Google Gemini (Fast & Recommended)</option>
+          <option value="ollama">Local Ollama (100% Offline / No Key Needed)</option>
           <option value="openai">OpenAI (GPT-4o-mini)</option>
-          <option value="claude">Anthropic Claude</option>
+          <option value="claude">Anthropic Claude (Claude 3.7)</option>
         </select>
+      </div>
+
+      <!-- API Key & Configuration Box -->
+      <div class="form-group" id="apiKeyContainer" style="display: none; background: #f8fafc; border: 1px solid var(--border); border-radius: var(--radius); padding: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <label id="apiKeyLabel" style="font-weight: 600; font-size: 0.8rem; color: #334155;">API Key</label>
+          <a id="apiKeyHelpLink" href="#" target="_blank" style="font-size: 0.75rem; color: var(--primary); text-decoration: none;">Get Free Key ↗</a>
+        </div>
+        <div style="display: flex; gap: 6px;">
+          <input type="password" id="apiKeyInput" placeholder="Paste your API key here..." style="font-size: 0.85rem; padding: 7px 10px;" />
+          <button type="button" id="btnSaveKey" class="btn btn-secondary" style="padding: 7px 12px; font-size: 0.8rem; white-space: nowrap;">
+            Save Key
+          </button>
+        </div>
+        <div id="keySaveStatus" style="font-size: 0.75rem; margin-top: 5px; color: var(--text-muted);"></div>
+      </div>
+
+      <!-- Ollama Info Box -->
+      <div class="form-group" id="ollamaContainer" style="display: none; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius); padding: 12px;">
+        <div style="font-weight: 600; font-size: 0.8rem; color: #166534;">Local Ollama Active</div>
+        <div style="font-size: 0.75rem; color: #15803d; margin-top: 2px;" id="ollamaModelInfo">
+          Running 100% offline. No API key needed!
+        </div>
       </div>
 
       <button id="btnGenerate" class="btn btn-primary" style="margin-top: 10px;">
@@ -137,6 +160,7 @@
 
   <script>
     let currentContentId = null;
+    let providerData = {};
 
     function updateCharCount() {
       const p = document.getElementById('prompt');
@@ -166,18 +190,101 @@
       this.focus();
     });
 
+    const providerConfigs = {
+      gemini: {
+        label: 'Google Gemini API Key',
+        helpUrl: 'https://aistudio.google.com/app/apikey',
+        helpText: 'Get Free Gemini Key ↗',
+        placeholder: 'Paste your Gemini API key (e.g. AIzaSy...)'
+      },
+      openai: {
+        label: 'OpenAI API Key',
+        helpUrl: 'https://platform.openai.com/api-keys',
+        helpText: 'Get OpenAI Key ↗',
+        placeholder: 'Paste your OpenAI key (sk-...)'
+      },
+      claude: {
+        label: 'Anthropic Claude API Key',
+        helpUrl: 'https://console.anthropic.com/settings/keys',
+        helpText: 'Get Claude Key ↗',
+        placeholder: 'Paste your Anthropic key (sk-ant-...)'
+      }
+    };
+
+    function updateProviderUI() {
+      const provider = document.getElementById('aiProvider').value;
+      const keyContainer = document.getElementById('apiKeyContainer');
+      const ollamaContainer = document.getElementById('ollamaContainer');
+      const keyInput = document.getElementById('apiKeyInput');
+      const keyStatus = document.getElementById('keySaveStatus');
+
+      if (provider === 'ollama') {
+        keyContainer.style.display = 'none';
+        ollamaContainer.style.display = 'block';
+      } else {
+        ollamaContainer.style.display = 'none';
+        keyContainer.style.display = 'block';
+
+        const conf = providerConfigs[provider];
+        document.getElementById('apiKeyLabel').textContent = conf.label;
+        const link = document.getElementById('apiKeyHelpLink');
+        link.href = conf.helpUrl;
+        link.textContent = conf.helpText;
+        keyInput.placeholder = conf.placeholder;
+
+        const storedKey = localStorage.getItem(provider + '_api_key') || '';
+        keyInput.value = storedKey;
+
+        const isServerConfigured = providerData[provider + 'Configured'];
+        if (storedKey || isServerConfigured) {
+          keyStatus.innerHTML = `<span style="color: #10b981;">✓ Key configured</span> (ready to use)`;
+        } else {
+          keyStatus.innerHTML = `<span style="color: #f59e0b;">⚠️ Key required. Paste your key above and click "Save Key"</span>`;
+        }
+      }
+    }
+
+    document.getElementById('aiProvider').addEventListener('change', updateProviderUI);
+
+    document.getElementById('btnSaveKey').addEventListener('click', async () => {
+      const provider = document.getElementById('aiProvider').value;
+      const key = document.getElementById('apiKeyInput').value.trim();
+      const status = document.getElementById('keySaveStatus');
+
+      if (!key) {
+        alert('Please paste an API key before saving.');
+        return;
+      }
+
+      localStorage.setItem(provider + '_api_key', key);
+      status.innerHTML = `<span style="color: #10b981;">Saving key to Lumi settings...</span>`;
+
+      try {
+        await fetch('/api/v1/ai/settings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ [`${provider}_api_key`]: key })
+        });
+        status.innerHTML = `<span style="color: #10b981;">✓ Key saved successfully and ready to use!</span>`;
+        await loadProviders();
+      } catch (err) {
+        status.innerHTML = `<span style="color: #10b981;">✓ Key saved locally in browser!</span>`;
+      }
+    });
+
     async function loadProviders() {
       try {
         const res = await fetch('/api/v1/ai/providers');
-        const data = await res.json();
+        providerData = await res.json();
         const statusEl = document.getElementById('providerStatus');
-        if (data.ollama && data.ollama.available) {
-          statusEl.innerHTML = `<span style="color: #10b981;">●</span> Ollama Online (${data.ollama.models[0] || 'Ready'})`;
-        } else if (data.geminiConfigured) {
+        if (providerData.ollama && providerData.ollama.available) {
+          statusEl.innerHTML = `<span style="color: #10b981;">●</span> Ollama Online (${providerData.ollama.models[0] || 'Ready'})`;
+        } else if (providerData.geminiConfigured) {
           statusEl.innerHTML = `<span style="color: #10b981;">●</span> Gemini Configured`;
         } else {
           statusEl.innerHTML = `<span style="color: #f59e0b;">●</span> Ready (Select Provider)`;
         }
+        updateProviderUI();
       } catch (e) {
         console.error(e);
       }
@@ -210,6 +317,8 @@
       btn.innerHTML = `<div class="spinner"></div> Generating...`;
       statusEl.textContent = 'Contacting AI engine and compiling H5P parameters...';
 
+      const apiKey = document.getElementById('apiKeyInput') ? (document.getElementById('apiKeyInput').value.trim() || localStorage.getItem(provider + '_api_key') || undefined) : undefined;
+
       try {
         const response = await fetch('/api/v1/ai/generate', {
           method: 'POST',
@@ -218,7 +327,7 @@
             prompt,
             contentType,
             documentContext,
-            providerConfig: { provider }
+            providerConfig: { provider, apiKey }
           })
         });
 
