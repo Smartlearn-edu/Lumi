@@ -19,10 +19,18 @@ if ($hassiteconfig) {
         'ollama',
         [
             'ollama' => get_string('provider_ollama', 'local_ai_h5p'),
+            'deepseek' => get_string('provider_deepseek', 'local_ai_h5p'),
             'gemini' => get_string('provider_gemini', 'local_ai_h5p'),
             'openai' => get_string('provider_openai', 'local_ai_h5p'),
             'claude' => get_string('provider_claude', 'local_ai_h5p'),
         ]
+    ));
+
+    $settings->add(new admin_setting_configpasswordunmask(
+        'local_ai_h5p/deepseek_api_key',
+        get_string('deepseek_api_key', 'local_ai_h5p'),
+        '',
+        ''
     ));
 
     $settings->add(new admin_setting_configtext(

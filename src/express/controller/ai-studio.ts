@@ -54,6 +54,7 @@ router.get('/api/v1/ai/providers', async (req: any, res: Express.Response) => {
     res.json({
       activeProvider: aiSettings.provider || (ollamaStatus.available ? 'ollama' : 'gemini'),
       geminiConfigured: !!(aiSettings.gemini_api_key || process.env.GEMINI_API_KEY),
+      deepseekConfigured: !!(aiSettings.deepseek_api_key || process.env.DEEPSEEK_API_KEY),
       openaiConfigured: !!(aiSettings.openai_api_key || process.env.OPENAI_API_KEY),
       claudeConfigured: !!(aiSettings.claude_api_key || process.env.ANTHROPIC_API_KEY),
       ollama: ollamaStatus,
@@ -129,11 +130,18 @@ router.post('/api/v1/ai/generate', async (req: any, res: Express.Response) => {
     const settings = await settings_read(req.ctx);
     const aiSettings = settings.ai || {};
 
+    const selectedProvider = providerConfig?.provider || aiSettings.provider || 'gemini';
+    let envKey = '';
+    if (selectedProvider === 'gemini') envKey = process.env.GEMINI_API_KEY || '';
+    else if (selectedProvider === 'deepseek') envKey = process.env.DEEPSEEK_API_KEY || '';
+    else if (selectedProvider === 'openai') envKey = process.env.OPENAI_API_KEY || '';
+    else if (selectedProvider === 'claude') envKey = process.env.ANTHROPIC_API_KEY || '';
+
     const resolvedConfig: AIProviderConfig = {
-      provider: providerConfig?.provider || aiSettings.provider || 'gemini',
-      apiKey: providerConfig?.apiKey || aiSettings[`${providerConfig?.provider || aiSettings.provider}_api_key`],
-      model: providerConfig?.model || aiSettings[`${providerConfig?.provider || aiSettings.provider}_model`],
-      endpoint: providerConfig?.endpoint || aiSettings.ollama_endpoint,
+      provider: selectedProvider,
+      apiKey: providerConfig?.apiKey || aiSettings[`${selectedProvider}_api_key`] || envKey || undefined,
+      model: providerConfig?.model || aiSettings[`${selectedProvider}_model`] || (selectedProvider === 'deepseek' ? 'deepseek-chat' : undefined),
+      endpoint: providerConfig?.endpoint || aiSettings[`${selectedProvider}_endpoint`] || (selectedProvider === 'ollama' ? aiSettings.ollama_endpoint : undefined),
       temperature: providerConfig?.temperature ?? 0.3
     };
 
@@ -169,7 +177,22 @@ router.post('/api/v1/ai/generate', async (req: any, res: Express.Response) => {
       renderUrl: `/api/v1/content/${id}/render`
     });
   } catch (error: any) {
-    res.status(500).json({ error: error.message });
+    const provider = req.body?.providerConfig?.provider || 'unknown';
+    const diagnosticHint = AIService.getDiagnosticHint(error, provider);
+
+    res.status(500).json({
+      error: error.message,
+      debug: {
+        message: error.message,
+        cause: error.cause ? (error.cause.message || String(error.cause)) : null,
+        code: error.cause?.code || error.code || null,
+        provider,
+        model: req.body?.providerConfig?.model || (provider === 'gemini' ? 'gemini-1.5-flash' : provider === 'deepseek' ? 'deepseek-chat' : 'default'),
+        endpoint: req.body?.providerConfig?.endpoint || (provider === 'deepseek' ? 'https://api.deepseek.com/chat/completions' : provider === 'gemini' ? 'generativelanguage.googleapis.com' : 'default'),
+        hint: diagnosticHint,
+        timestamp: new Date().toISOString()
+      }
+    });
   }
 });
 

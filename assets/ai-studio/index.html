@@ -50,6 +50,15 @@
     .tabs { display: flex; gap: 6px; margin-bottom: 10px; }
     .tab { padding: 6px 12px; font-size: 0.8rem; font-weight: 600; border-radius: 6px; cursor: pointer; background: transparent; border: 1px solid transparent; }
     .tab.active { background: #e2e8f0; color: var(--text); }
+    .error-card { background: #fff; border: 1px solid #fca5a5; border-radius: var(--radius); padding: 22px; max-width: 580px; width: 90%; box-shadow: 0 4px 16px rgba(239, 68, 68, 0.08); text-align: left; margin: 20px auto; }
+    .error-badge { display: inline-block; background: #fee2e2; color: #b91c1c; font-weight: 700; font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; margin-bottom: 8px; }
+    .error-title { font-size: 1.05rem; color: #991b1b; margin-bottom: 10px; word-break: break-word; }
+    .error-hint { background: #fefce8; border-left: 4px solid #eab308; padding: 10px 14px; font-size: 0.85rem; color: #854d0e; border-radius: 4px; margin-bottom: 14px; line-height: 1.45; }
+    .error-quick-switch { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+    .btn-sm { padding: 5px 10px; font-size: 0.78rem; border-radius: 6px; }
+    .error-debug-details { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px 12px; font-size: 0.8rem; }
+    .error-debug-details summary { cursor: pointer; font-weight: 600; color: #475569; outline: none; }
+    .error-debug-details pre { background: #0f172a; color: #e2e8f0; padding: 10px; border-radius: 6px; margin: 8px 0; overflow-x: auto; font-family: monospace; font-size: 0.75rem; max-height: 180px; }
   </style>
 </head>
 <body>
@@ -102,6 +111,7 @@
         <label>AI Provider</label>
         <select id="aiProvider">
           <option value="gemini">Google Gemini (Fast & Recommended)</option>
+          <option value="deepseek">DeepSeek (V3 / R1 - Fast, Global & Affordable)</option>
           <option value="ollama">Local Ollama (100% Offline / No Key Needed)</option>
           <option value="openai">OpenAI (GPT-4o-mini)</option>
           <option value="claude">Anthropic Claude (Claude 3.7)</option>
@@ -197,6 +207,12 @@
         helpText: 'Get Free Gemini Key ↗',
         placeholder: 'Paste your Gemini API key (e.g. AIzaSy...)'
       },
+      deepseek: {
+        label: 'DeepSeek API Key',
+        helpUrl: 'https://platform.deepseek.com/api_keys',
+        helpText: 'Get DeepSeek Key ↗',
+        placeholder: 'Paste your DeepSeek key (e.g. sk-...)'
+      },
       openai: {
         label: 'OpenAI API Key',
         helpUrl: 'https://platform.openai.com/api-keys',
@@ -279,6 +295,8 @@
         const statusEl = document.getElementById('providerStatus');
         if (providerData.ollama && providerData.ollama.available) {
           statusEl.innerHTML = `<span style="color: #10b981;">●</span> Ollama Online (${providerData.ollama.models[0] || 'Ready'})`;
+        } else if (providerData.deepseekConfigured) {
+          statusEl.innerHTML = `<span style="color: #10b981;">●</span> DeepSeek Configured`;
         } else if (providerData.geminiConfigured) {
           statusEl.innerHTML = `<span style="color: #10b981;">●</span> Gemini Configured`;
         } else {
@@ -333,7 +351,9 @@
 
         const result = await response.json();
         if (!response.ok || result.error) {
-          throw new Error(result.error || 'Generation failed');
+          const errObj = new Error(result.error || 'Generation failed');
+          errObj.debug = result.debug;
+          throw errObj;
         }
 
         currentContentId = result.contentId;
@@ -344,13 +364,69 @@
         // Embed live render preview
         previewArea.innerHTML = `<iframe src="${result.renderUrl}"></iframe>`;
       } catch (err) {
-        statusEl.textContent = `❌ Error: ${err.message}`;
-        alert(`Generation Error: ${err.message}`);
+        statusEl.textContent = `❌ Generation Error`;
+        const debugInfo = err.debug || {
+          message: err.message,
+          provider: provider,
+          timestamp: new Date().toISOString()
+        };
+        const hint = debugInfo.hint || 'Check your internet connection, API key, or provider status.';
+        const debugJson = JSON.stringify(debugInfo, null, 2);
+
+        previewArea.innerHTML = `
+          <div class="error-card">
+            <div class="error-badge">⚠️ AI Generation Failed</div>
+            <h4 class="error-title">${escapeHtml(err.message)}</h4>
+            <div class="error-hint">
+              <strong>💡 Diagnostic & Suggestion:</strong><br/>
+              ${escapeHtml(hint)}
+            </div>
+
+            <div class="error-quick-switch">
+              <span style="font-size: 0.8rem; font-weight: 600; color: #475569;">Quick Workarounds:</span>
+              <button class="btn btn-secondary btn-sm" onclick="quickSwitchProvider('deepseek')">⚡ Switch to DeepSeek</button>
+              <button class="btn btn-secondary btn-sm" onclick="quickSwitchProvider('ollama')">🦙 Switch to Local Ollama</button>
+            </div>
+
+            <details class="error-debug-details" open>
+              <summary>🔍 Technical Debug Details</summary>
+              <pre id="debugDetailsPre">${escapeHtml(debugJson)}</pre>
+              <button class="btn btn-secondary btn-sm" onclick="copyDebugInfo(this)">📋 Copy Debug Info</button>
+            </details>
+          </div>
+        `;
       } finally {
         btn.disabled = false;
         btn.innerHTML = `<span>⚡ Generate Activity</span>`;
       }
     });
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function quickSwitchProvider(newProvider) {
+      document.getElementById('aiProvider').value = newProvider;
+      updateProviderUI();
+      const statusEl = document.getElementById('statusMessage');
+      statusEl.textContent = `Switched provider to ${newProvider}. Click "Generate Activity" to try again!`;
+    }
+
+    function copyDebugInfo(btn) {
+      const pre = document.getElementById('debugDetailsPre');
+      if (pre) {
+        navigator.clipboard.writeText(pre.textContent).then(() => {
+          btn.textContent = '✓ Copied!';
+          setTimeout(() => { btn.textContent = '📋 Copy Debug Info'; }, 2000);
+        });
+      }
+    }
 
     document.getElementById('btnOpenEditor').addEventListener('click', () => {
       if (currentContentId) {

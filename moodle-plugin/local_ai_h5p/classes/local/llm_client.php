@@ -26,6 +26,9 @@ class llm_client {
             case 'ollama':
                 $raw = self::call_ollama($systemprompt, $userprompt);
                 break;
+            case 'deepseek':
+                $raw = self::call_deepseek($systemprompt, $userprompt);
+                break;
             case 'gemini':
                 $raw = self::call_gemini($systemprompt, $userprompt);
                 break;
@@ -78,6 +81,30 @@ class llm_client {
 
         $res = self::post_json($url, $payload);
         return $res['candidates'][0]['content']['parts'][0]['text'] ?? '';
+    }
+
+    public static function call_deepseek(string $systemprompt, string $userprompt): string {
+        $apikey = get_config('local_ai_h5p', 'deepseek_api_key');
+        if (empty($apikey)) {
+            throw new \moodle_exception('Missing DeepSeek API key');
+        }
+
+        $headers = [
+            "Authorization: Bearer {$apikey}",
+            "Content-Type: application/json"
+        ];
+        $payload = [
+            'model' => 'deepseek-chat',
+            'messages' => [
+                ['role' => 'system', 'content' => $systemprompt],
+                ['role' => 'user', 'content' => $userprompt]
+            ],
+            'response_format' => ['type' => 'json_object'],
+            'temperature' => 0.3
+        ];
+
+        $res = self::post_json("https://api.deepseek.com/chat/completions", $payload, $headers);
+        return $res['choices'][0]['message']['content'] ?? '';
     }
 
     public static function call_openai(string $systemprompt, string $userprompt): string {
