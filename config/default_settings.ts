@@ -1,7 +1,7 @@
 import { app } from 'electron';
 
 const default_settings = {
-  language: app.getLocale(),
+  language: app?.getLocale ? app.getLocale() : 'en',
   prerelease_features: true,
   updates_automatic: true,
 
@@ -18,7 +18,12 @@ const default_settings = {
   http_proxy: '',
 
   hub_content_types_endpoint: 'https://api.h5p.org/v1/content-types/',
-  hub_registration_endpoint: 'https://api.h5p.org/v1/sites'
+  hub_registration_endpoint: 'https://api.h5p.org/v1/sites',
+  ai: {
+    provider: 'ollama',
+    ollama_endpoint: 'http://localhost:11434',
+    ollama_model: 'llama3.2:latest'
+  }
 };
 
 export default default_settings;

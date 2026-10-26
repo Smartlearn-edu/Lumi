@@ -1,0 +1,752 @@
+{
+  "H5P.MultiChoice": {
+    "machineName": "H5P.MultiChoice",
+    "majorVersion": 1,
+    "minorVersion": 16,
+    "ubername": "H5P.MultiChoice 1.16",
+    "title": "Multiple Choice",
+    "defaultParams": {
+      "media": {
+        "disableImageZooming": false
+      },
+      "overallFeedback": {},
+      "UI": {
+        "checkAnswerButton": "Check",
+        "submitAnswerButton": "Submit",
+        "showSolutionButton": "Show solution",
+        "tryAgainButton": "Retry",
+        "tipsLabel": "Show tip",
+        "scoreBarLabel": "You got :num out of :total points",
+        "tipAvailable": "Tip available",
+        "feedbackAvailable": "Feedback available",
+        "readFeedback": "Read feedback",
+        "wrongAnswer": "Wrong answer",
+        "correctAnswer": "Correct answer",
+        "shouldCheck": "Should have been checked",
+        "shouldNotCheck": "Should not have been checked",
+        "noInput": "Please answer before viewing the solution",
+        "a11yCheck": "Check the answers. The responses will be marked as correct, incorrect, or unanswered.",
+        "a11yShowSolution": "Show the solution. The task will be marked with its correct solution.",
+        "a11yRetry": "Retry the task. Reset all responses and start the task over again."
+      },
+      "confirmCheck": {
+        "header": "Finish ?",
+        "body": "Are you sure you wish to finish ?",
+        "cancelLabel": "Cancel",
+        "confirmLabel": "Finish"
+      },
+      "confirmRetry": {
+        "header": "Retry ?",
+        "body": "Are you sure you wish to retry ?",
+        "cancelLabel": "Cancel",
+        "confirmLabel": "Confirm"
+      }
+    },
+    "preloadedDependencies": [
+      {
+        "machineName": "H5P.MultiChoice",
+        "majorVersion": 1,
+        "minorVersion": 16
+      },
+      {
+        "machineName": "FontAwesome",
+        "majorVersion": 4,
+        "minorVersion": 5
+      },
+      {
+        "machineName": "H5P.JoubelUI",
+        "majorVersion": 1,
+        "minorVersion": 3
+      },
+      {
+        "machineName": "H5P.Transition",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      {
+        "machineName": "H5P.FontIcons",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      {
+        "machineName": "H5P.Question",
+        "majorVersion": 1,
+        "minorVersion": 5
+      }
+    ]
+  },
+  "H5P.TrueFalse": {
+    "machineName": "H5P.TrueFalse",
+    "majorVersion": 1,
+    "minorVersion": 8,
+    "ubername": "H5P.TrueFalse 1.8",
+    "title": "True/False Question",
+    "defaultParams": {
+      "media": {
+        "disableImageZooming": false
+      },
+      "correct": "true",
+      "l10n": {
+        "trueText": "True",
+        "falseText": "False",
+        "score": "You got @score of @total points",
+        "checkAnswer": "Check",
+        "submitAnswer": "Submit",
+        "showSolutionButton": "Show solution",
+        "tryAgain": "Retry",
+        "wrongAnswerMessage": "Wrong answer",
+        "correctAnswerMessage": "Correct answer",
+        "scoreBarLabel": "You got :num out of :total points",
+        "a11yCheck": "Check the answers. The responses will be marked as correct, incorrect, or unanswered.",
+        "a11yShowSolution": "Show the solution. The task will be marked with its correct solution.",
+        "a11yRetry": "Retry the task. Reset all responses and start the task over again."
+      },
+      "behaviour": {
+        "enableRetry": true,
+        "enableSolutionsButton": true,
+        "enableCheckButton": true,
+        "confirmCheckDialog": false,
+        "confirmRetryDialog": false,
+        "autoCheck": false
+      },
+      "confirmCheck": {
+        "header": "Finish ?",
+        "body": "Are you sure you wish to finish ?",
+        "cancelLabel": "Cancel",
+        "confirmLabel": "Finish"
+      },
+      "confirmRetry": {
+        "header": "Retry ?",
+        "body": "Are you sure you wish to retry ?",
+        "cancelLabel": "Cancel",
+        "confirmLabel": "Confirm"
+      }
+    },
+    "preloadedDependencies": [
+      {
+        "machineName": "H5P.TrueFalse",
+        "majorVersion": 1,
+        "minorVersion": 8
+      },
+      {
+        "machineName": "FontAwesome",
+        "majorVersion": 4,
+        "minorVersion": 5
+      },
+      {
+        "machineName": "H5P.Question",
+        "majorVersion": 1,
+        "minorVersion": 5
+      },
+      {
+        "machineName": "H5P.JoubelUI",
+        "majorVersion": 1,
+        "minorVersion": 3
+      },
+      {
+        "machineName": "H5P.Transition",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      {
+        "machineName": "H5P.FontIcons",
+        "majorVersion": 1,
+        "minorVersion": 0
+      }
+    ]
+  },
+  "H5P.Blanks": {
+    "machineName": "H5P.Blanks",
+    "majorVersion": 1,
+    "minorVersion": 14,
+    "ubername": "H5P.Blanks 1.14",
+    "title": "Fill in the Blanks",
+    "defaultParams": {
+      "media": {
+        "disableImageZooming": false
+      },
+      "text": "Fill in the missing words",
+      "overallFeedback": {},
+      "showSolutions": "Show solution",
+      "tryAgain": "Retry",
+      "checkAnswer": "Check",
+      "submitAnswer": "Submit",
+      "notFilledOut": "Please fill in all blanks to view solution",
+      "answerIsCorrect": "':ans' is correct",
+      "answerIsWrong": "':ans' is wrong",
+      "answeredCorrectly": "Answered correctly",
+      "answeredIncorrectly": "Answered incorrectly",
+      "solutionLabel": "Correct answer:",
+      "inputLabel": "Blank input @num of @total",
+      "inputHasTipLabel": "Tip available",
+      "tipLabel": "Tip",
+      "confirmCheck": {
+        "header": "Finish ?",
+        "body": "Are you sure you wish to finish ?",
+        "cancelLabel": "Cancel",
+        "confirmLabel": "Finish"
+      },
+      "confirmRetry": {
+        "header": "Retry ?",
+        "body": "Are you sure you wish to retry ?",
+        "cancelLabel": "Cancel",
+        "confirmLabel": "Confirm"
+      },
+      "scoreBarLabel": "You got :num out of :total points",
+      "a11yCheck": "Check the answers. The responses will be marked as correct, incorrect, or unanswered.",
+      "a11yShowSolution": "Show the solution. The task will be marked with its correct solution.",
+      "a11yRetry": "Retry the task. Reset all responses and start the task over again.",
+      "a11yCheckingModeHeader": "Checking mode"
+    },
+    "preloadedDependencies": [
+      {
+        "machineName": "H5P.Blanks",
+        "majorVersion": 1,
+        "minorVersion": 14
+      },
+      {
+        "machineName": "FontAwesome",
+        "majorVersion": 4,
+        "minorVersion": 5
+      },
+      {
+        "machineName": "H5P.Question",
+        "majorVersion": 1,
+        "minorVersion": 5
+      },
+      {
+        "machineName": "H5P.JoubelUI",
+        "majorVersion": 1,
+        "minorVersion": 3
+      },
+      {
+        "machineName": "H5P.Transition",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      {
+        "machineName": "H5P.FontIcons",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      {
+        "machineName": "H5P.TextUtilities",
+        "majorVersion": 1,
+        "minorVersion": 3
+      }
+    ]
+  },
+  "H5P.DragText": {
+    "machineName": "H5P.DragText",
+    "majorVersion": 1,
+    "minorVersion": 10,
+    "ubername": "H5P.DragText 1.10",
+    "title": "Drag the Words",
+    "defaultParams": {
+      "media": {
+        "disableImageZooming": false
+      },
+      "taskDescription": "Drag the words into the correct boxes",
+      "overallFeedback": {},
+      "checkAnswer": "Check",
+      "submitAnswer": "Submit",
+      "tryAgain": "Retry",
+      "showSolution": "Show solution",
+      "dropZoneIndex": "Drop Zone @index.",
+      "empty": "Drop Zone @index is empty.",
+      "contains": "Drop Zone @index contains draggable @draggable.",
+      "ariaDraggableIndex": "@index of @count draggables.",
+      "tipLabel": "Show tip",
+      "correctText": "Correct!",
+      "incorrectText": "Incorrect!",
+      "resetDropTitle": "Reset drop",
+      "resetDropDescription": "Are you sure you want to reset this drop zone?",
+      "grabbed": "Draggable is grabbed.",
+      "cancelledDragging": "Cancelled dragging.",
+      "correctAnswer": "Correct answer:",
+      "feedbackHeader": "Feedback",
+      "scoreBarLabel": "You got :num out of :total points",
+      "a11yCheck": "Check the answers. The responses will be marked as correct, incorrect, or unanswered.",
+      "a11yShowSolution": "Show the solution. The task will be marked with its correct solution.",
+      "a11yRetry": "Retry the task. Reset all responses and start the task over again."
+    },
+    "preloadedDependencies": [
+      {
+        "machineName": "H5P.DragText",
+        "majorVersion": 1,
+        "minorVersion": 10
+      },
+      {
+        "machineName": "FontAwesome",
+        "majorVersion": 4,
+        "minorVersion": 5
+      },
+      {
+        "machineName": "jQuery.ui",
+        "majorVersion": 1,
+        "minorVersion": 10
+      },
+      {
+        "machineName": "H5P.JoubelUI",
+        "majorVersion": 1,
+        "minorVersion": 3
+      },
+      {
+        "machineName": "H5P.Transition",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      {
+        "machineName": "H5P.FontIcons",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      {
+        "machineName": "H5P.Question",
+        "majorVersion": 1,
+        "minorVersion": 5
+      }
+    ]
+  },
+  "H5P.Dialogcards": {
+    "machineName": "H5P.Dialogcards",
+    "majorVersion": 1,
+    "minorVersion": 9,
+    "ubername": "H5P.Dialogcards 1.9",
+    "title": "Dialog Cards",
+    "defaultParams": {
+      "mode": "normal",
+      "answer": "Turn",
+      "next": "Next",
+      "prev": "Previous",
+      "retry": "Retry",
+      "correctAnswer": "I got it right!",
+      "incorrectAnswer": "I got it wrong",
+      "round": "Round @round",
+      "cardsLeft": "Cards left: @number",
+      "nextRound": "Proceed to round @round",
+      "startOver": "Start over",
+      "showSummary": "Next",
+      "summary": "Summary",
+      "summaryCardsRight": "Cards you got right:",
+      "summaryCardsWrong": "Cards you got wrong:",
+      "summaryCardsNotShown": "Cards in pool not shown:",
+      "summaryOverallScore": "Overall Score",
+      "summaryCardsCompleted": "Cards you have completed learning:",
+      "summaryCompletedRounds": "Completed rounds:",
+      "summaryAllDone": "Well done! You have mastered all @cards cards by getting them correct @max times!",
+      "progressText": "Card @card of @total",
+      "cardFrontLabel": "Card front",
+      "cardBackLabel": "Card back",
+      "tipButtonLabel": "Show tip",
+      "audioNotSupported": "Your browser does not support this audio",
+      "confirmStartingOver": {
+        "header": "Start over?",
+        "body": "All progress will be lost. Are you sure you want to start over?",
+        "cancelLabel": "Cancel",
+        "confirmLabel": "Start over"
+      }
+    },
+    "preloadedDependencies": [
+      {
+        "machineName": "H5P.Dialogcards",
+        "majorVersion": 1,
+        "minorVersion": 9
+      },
+      {
+        "machineName": "FontAwesome",
+        "majorVersion": 4,
+        "minorVersion": 5
+      },
+      {
+        "machineName": "H5P.JoubelUI",
+        "majorVersion": 1,
+        "minorVersion": 3
+      },
+      {
+        "machineName": "H5P.Transition",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      {
+        "machineName": "H5P.FontIcons",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      {
+        "machineName": "H5P.Audio",
+        "majorVersion": 1,
+        "minorVersion": 5
+      }
+    ]
+  },
+  "H5P.Flashcards": {
+    "machineName": "H5P.Flashcards",
+    "majorVersion": 1,
+    "minorVersion": 7,
+    "ubername": "H5P.Flashcards 1.7",
+    "title": "Flashcards",
+    "defaultParams": {
+      "progressText": "Card @card of @total",
+      "next": "Next",
+      "previous": "Previous",
+      "checkAnswerText": "Check",
+      "showSolutionsRequiresInput": true,
+      "defaultAnswerText": "Your answer",
+      "correctAnswerText": "Correct",
+      "incorrectAnswerText": "Incorrect",
+      "showSolutionText": "Correct answer(s)",
+      "results": "Results",
+      "ofCorrect": "@score of @total correct",
+      "showResults": "Show results",
+      "answerShortText": "A:",
+      "retry": "Retry",
+      "caseSensitive": false,
+      "cardAnnouncement": "Incorrect answer. Correct answer was @answer",
+      "correctAnswerAnnouncement": "@answer is correct.",
+      "pageAnnouncement": "Page @current of @total",
+      "randomCards": false
+    },
+    "preloadedDependencies": [
+      {
+        "machineName": "H5P.Flashcards",
+        "majorVersion": 1,
+        "minorVersion": 7
+      },
+      {
+        "machineName": "FontAwesome",
+        "majorVersion": 4,
+        "minorVersion": 5
+      },
+      {
+        "machineName": "H5P.JoubelUI",
+        "majorVersion": 1,
+        "minorVersion": 3
+      },
+      {
+        "machineName": "H5P.Transition",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      {
+        "machineName": "H5P.FontIcons",
+        "majorVersion": 1,
+        "minorVersion": 0
+      }
+    ]
+  },
+  "H5P.Summary": {
+    "machineName": "H5P.Summary",
+    "majorVersion": 1,
+    "minorVersion": 10,
+    "ubername": "H5P.Summary 1.10",
+    "title": "Summary",
+    "defaultParams": {
+      "intro": "Choose the correct statement.",
+      "overallFeedback": {},
+      "solvedLabel": "Progress:",
+      "scoreLabel": "Wrong answers:",
+      "resultLabel": "Your result",
+      "labelCorrect": "Correct.",
+      "labelIncorrect": "Incorrect! Please try again.",
+      "alternativeIncorrectLabel": "Incorrect",
+      "labelCorrectAnswers": "Correct answers.",
+      "tipButtonLabel": "Show tip",
+      "scoreBarLabel": "You got :num out of :total points",
+      "progressText": "Progress :num of :total"
+    },
+    "preloadedDependencies": [
+      {
+        "machineName": "H5P.Summary",
+        "majorVersion": 1,
+        "minorVersion": 10
+      },
+      {
+        "machineName": "FontAwesome",
+        "majorVersion": 4,
+        "minorVersion": 5
+      },
+      {
+        "machineName": "H5P.JoubelUI",
+        "majorVersion": 1,
+        "minorVersion": 3
+      },
+      {
+        "machineName": "H5P.Transition",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      {
+        "machineName": "H5P.FontIcons",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      {
+        "machineName": "H5P.Question",
+        "majorVersion": 1,
+        "minorVersion": 5
+      }
+    ]
+  },
+  "H5P.SingleChoiceSet": {
+    "machineName": "H5P.SingleChoiceSet",
+    "majorVersion": 1,
+    "minorVersion": 11,
+    "ubername": "H5P.SingleChoiceSet 1.11",
+    "title": "Single Choice Set",
+    "defaultParams": {
+      "overallFeedback": {},
+      "behaviour": {
+        "autoContinue": true,
+        "timeoutCorrect": 2000,
+        "timeoutWrong": 3000,
+        "soundEffectsEnabled": true,
+        "enableRetry": true,
+        "enableSolutionsButton": true,
+        "passPercentage": 100
+      },
+      "l10n": {
+        "nextButtonLabel": "Next question",
+        "showSolutionButtonLabel": "Show solution",
+        "retryButtonLabel": "Retry",
+        "solutionViewTitle": "Solution list",
+        "correctText": "Correct!",
+        "incorrectText": "Incorrect!",
+        "shouldSelect": "Should have been selected",
+        "shouldNotSelect": "Should not have been selected",
+        "muteButtonLabel": "Mute feedback sound",
+        "closeButtonLabel": "Close",
+        "slideOfTotal": "Slide :num of :total",
+        "scoreBarLabel": "You got :num out of :total points",
+        "solutionListQuestionNumber": "Question :num",
+        "a11yShowSolution": "Show the solution. The task will be marked with its correct solution.",
+        "a11yRetry": "Retry the task. Reset all responses and start the task over again."
+      }
+    },
+    "preloadedDependencies": [
+      {
+        "machineName": "H5P.SingleChoiceSet",
+        "majorVersion": 1,
+        "minorVersion": 11
+      },
+      {
+        "machineName": "FontAwesome",
+        "majorVersion": 4,
+        "minorVersion": 5
+      },
+      {
+        "machineName": "H5P.JoubelUI",
+        "majorVersion": 1,
+        "minorVersion": 3
+      },
+      {
+        "machineName": "H5P.Transition",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      {
+        "machineName": "H5P.FontIcons",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      {
+        "machineName": "H5P.Question",
+        "majorVersion": 1,
+        "minorVersion": 5
+      }
+    ]
+  },
+  "H5P.CoursePresentation": {
+    "machineName": "H5P.CoursePresentation",
+    "majorVersion": 1,
+    "minorVersion": 26,
+    "ubername": "H5P.CoursePresentation 1.26",
+    "title": "Course Presentation",
+    "defaultParams": {
+      "presentation": {
+        "keywordListEnabled": true,
+        "keywordListAlwaysShow": false,
+        "keywordListAutoHide": false,
+        "keywordListOpacity": 90,
+        "globalBackgroundSelector": {
+          "fillGlobalBackground": null
+        }
+      },
+      "l10n": {
+        "slide": "Slide",
+        "score": "Score",
+        "yourScore": "Your Score",
+        "maxScore": "Max Score",
+        "total": "Total",
+        "totalScore": "Total Score",
+        "showSolutions": "Show solutions",
+        "retry": "Retry",
+        "exportAnswers": "Export text",
+        "hideKeywords": "Hide sidebar navigation menu",
+        "showKeywords": "Show sidebar navigation menu",
+        "fullscreen": "Fullscreen",
+        "exitFullscreen": "Exit fullscreen",
+        "prevSlide": "Previous slide",
+        "nextSlide": "Next slide",
+        "currentSlide": "Current slide",
+        "lastSlide": "Last slide",
+        "solutionModeTitle": "Exit solution mode",
+        "solutionModeText": "Solution Mode",
+        "summaryMultipleTaskText": "Multiple tasks",
+        "scoreMessage": "You achieved:",
+        "shareFacebook": "Share on Facebook",
+        "shareTwitter": "Share on Twitter",
+        "shareGoogle": "Share on Google+",
+        "summary": "Summary",
+        "solutionsButtonTitle": "Show comments",
+        "printTitle": "Print",
+        "printIngress": "How would you like to print this presentation?",
+        "printAllSlides": "Print all slides",
+        "printCurrentSlide": "Print current slide",
+        "noTitle": "No title",
+        "accessibilitySlideNavigationExplanation": "Use left and right arrow to change slide in that direction whenever canvas is selected.",
+        "accessibilityCanvasLabel": "Presentation canvas. Use left and right arrow to move between slides.",
+        "accessibilityProgressBarLabel": "Choose slide to display",
+        "containsNotCompleted": "@slideName contains not completed interaction",
+        "containsCompleted": "@slideName contains completed interaction",
+        "slideCount": "Slide @index of @total",
+        "containsOnlyCorrect": "@slideName only has correct answers",
+        "containsIncorrectAnswers": "@slideName has incorrect answers",
+        "shareResult": "Share Result",
+        "accessibilityTotalScore": "You got @score of @maxScore points in total",
+        "accessibilityEnteredFullscreen": "Entered fullscreen",
+        "accessibilityExitedFullscreen": "Exited fullscreen",
+        "confirmDialogHeader": "Submit your answers",
+        "confirmDialogText": "This will submit your results, do you want to continue?",
+        "confirmDialogConfirmText": "Submit and see results",
+        "slideshowNavigationLabel": "Slideshow navigation",
+        "confirmDialogConfirmLabel": "Confirm",
+        "confirmDialogCancelLabel": "Cancel"
+      }
+    },
+    "preloadedDependencies": [
+      {
+        "machineName": "H5P.CoursePresentation",
+        "majorVersion": 1,
+        "minorVersion": 26
+      },
+      {
+        "machineName": "FontAwesome",
+        "majorVersion": 4,
+        "minorVersion": 5
+      },
+      {
+        "machineName": "H5P.JoubelUI",
+        "majorVersion": 1,
+        "minorVersion": 3
+      },
+      {
+        "machineName": "H5P.Transition",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      {
+        "machineName": "H5P.FontIcons",
+        "majorVersion": 1,
+        "minorVersion": 0
+      }
+    ]
+  },
+  "H5P.Column": {
+    "machineName": "H5P.Column",
+    "majorVersion": 1,
+    "minorVersion": 18,
+    "ubername": "H5P.Column 1.18",
+    "title": "Column",
+    "defaultParams": {},
+    "preloadedDependencies": [
+      {
+        "machineName": "H5P.Column",
+        "majorVersion": 1,
+        "minorVersion": 18
+      }
+    ]
+  },
+  "H5P.InteractiveBook": {
+    "machineName": "H5P.InteractiveBook",
+    "majorVersion": 1,
+    "minorVersion": 11,
+    "ubername": "H5P.InteractiveBook 1.11",
+    "title": "Interactive Book",
+    "defaultParams": {
+      "showCoverPage": false,
+      "bookCover": {
+        "coverDescription": "<p style=\"text-align: center;\"></p>"
+      },
+      "behaviour": {
+        "baseColor": "#1768c4",
+        "defaultTableOfContents": true,
+        "progressIndicators": true,
+        "progressAuto": true,
+        "displaySummary": true,
+        "enableRetry": true
+      },
+      "read": "Read",
+      "displayTOC": "Display 'Table of contents'",
+      "hideTOC": "Hide 'Table of contents'",
+      "nextPage": "Next page",
+      "previousPage": "Previous page",
+      "chapterCompleted": "Page completed!",
+      "partCompleted": "@pages of @total completed",
+      "incompleteChapter": "Incomplete page",
+      "navigateToTop": "Navigate to the top",
+      "markAsFinished": "I have finished this page",
+      "fullscreen": "Fullscreen",
+      "exitFullscreen": "Exit fullscreen",
+      "bookProgressSubtext": "@count of @total pages",
+      "interactionsProgressSubtext": "@count of @total interactions",
+      "submitReport": "Submit Report",
+      "restartLabel": "Restart",
+      "summaryHeader": "Summary",
+      "allInteractions": "All interactions",
+      "unansweredInteractions": "Unanswered interactions",
+      "scoreText": "@score / @maxscore",
+      "leftOutOfTotalCompleted": "@left of @max interactions completed",
+      "noInteractions": "No interactions",
+      "score": "Score",
+      "summaryAndSubmit": "Summary &amp; submit",
+      "noChapterInteractionBoldText": "You have not interacted with any pages.",
+      "noChapterInteractionText": "You have to interact with at least one page before you can see the summary.",
+      "yourAnswersAreSubmittedForReview": "Your answers are submitted for review!",
+      "bookProgress": "Book progress",
+      "interactionsProgress": "Interactions progress",
+      "totalScoreLabel": "Total score",
+      "a11y": {
+        "progress": "Page @page of @total.",
+        "menu": "Toggle navigation menu"
+      }
+    },
+    "preloadedDependencies": [
+      {
+        "machineName": "H5P.InteractiveBook",
+        "majorVersion": 1,
+        "minorVersion": 11
+      },
+      {
+        "machineName": "FontAwesome",
+        "majorVersion": 4,
+        "minorVersion": 5
+      },
+      {
+        "machineName": "H5P.JoubelUI",
+        "majorVersion": 1,
+        "minorVersion": 3
+      },
+      {
+        "machineName": "H5P.Transition",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      {
+        "machineName": "H5P.FontIcons",
+        "majorVersion": 1,
+        "minorVersion": 0
+      }
+    ]
+  }
+}

@@ -3,8 +3,18 @@
   "version": "1.0.3",
   "private": true,
   "main": "build/src/main.js",
+  "bin": {
+    "lumi": "build/src/cli.js",
+    "lumi-cli": "build/src/cli.js"
+  },
   "description": "A tool to create and display interactive content with H5P",
   "scripts": {
+    "cli": "node build/src/cli.js",
+    "test:gate1": "node build/test/test-gates/test-gate-1.js",
+    "test:gate2": "node build/test/test-gates/test-gate-2.js",
+    "test:gate3": "node build/test/test-gates/test-gate-3.js",
+    "test:gate4": "php test/test-gates/test-gate-4.php",
+    "test:all": "npm run test:gate1 && npm run test:gate2 && npm run test:gate3 && npm run test:gate4",
     "start": "npx electron .",
     "build": "rm -rf build/ && npx tsc",
     "build:mac": "npm run build && npx electron-builder --config builder.config.js --mac --publish never",

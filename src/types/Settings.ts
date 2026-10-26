@@ -17,4 +17,5 @@ export default interface Settings {
 
   hub_content_types_endpoint: string;
   hub_registration_endpoint: string;
+  ai?: Record<string, any>;
 }

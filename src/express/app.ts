@@ -14,6 +14,7 @@ import { Context } from '../boot';
 import editContent from './controller/edit-content';
 import saveContent from './controller/save-content';
 import getSettings from './controller/get-settings';
+import aiStudio from './controller/ai-studio';
 // import i18nextHttpMiddleware from 'i18next-http-middleware';
 import renderContent from './controller/render-content';
 
@@ -56,6 +57,7 @@ export default async (
   app.use(editContent);
   app.use(saveContent);
   app.use(getSettings);
+  app.use(aiStudio);
 
   app.use(
     `/api/v1/libraries`,

@@ -7,6 +7,12 @@ node_modules
 
 # testing
 coverage
+test-output*/
+test-output/
+test-output-ai-studio/
+test-output-moodle/
+test-output-skill/
+moodle-local_ai_h5p.zip
 
 # production
 .next

@@ -1,4 +1,5 @@
 import file_new from './file_new';
+import file_ai_studio from './file_ai_studio';
 import file_open from './file_open';
 import file_save from './file_save';
 import { Context } from '../../boot';
@@ -12,6 +13,7 @@ export default function file_menu(ctx: Context): any[] {
       label: ctx.translate('File'),
       submenu: [
         file_new(ctx),
+        file_ai_studio(ctx),
         { type: 'separator' } as any,
         file_open(ctx),
         { type: 'separator' } as any,
